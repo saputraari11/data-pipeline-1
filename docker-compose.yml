@@ -1,0 +1,11 @@
+services:
+  pgdatabase:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=ny_taxi
+    volumes:
+      - "./belajar_pipeline:/var/lib/postgresql/data:rw"
+    ports:
+      - "5430:5432"
