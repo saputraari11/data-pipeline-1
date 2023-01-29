@@ -1,11 +1,32 @@
+version: '3.8'
 services:
-  pgdatabase:
-    image: postgres:13
-    environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=ny_taxi
-    volumes:
-      - "./belajar_pipeline:/var/lib/postgresql/data:rw"
-    ports:
-      - "5430:5432"
+    postgresqldb:
+      image: postgres:14
+      restart: always
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_DB=ny_taxi
+      ports:
+        - 5433:5432
+      networks:
+        - backend
+      volumes:
+        - ./db:/var/lib/postgresql/data:rw
+
+    pythonapp:
+      networks:
+        - backend
+      build: "."
+      command: sh -c "sleep 10; python ./pipeline.py -u postgres -p postgres -s postgresqldb -v 5432 -d ny_taxi -i https://d37ci6vzurychx.cloudfront.net/misc/taxi+_zone_lookup.csv"
+      depends_on:
+        - postgresqldb
+
+
+# volumes:
+#     db:
+#       driver: local
+
+networks:
+  backend:
+    driver: bridge

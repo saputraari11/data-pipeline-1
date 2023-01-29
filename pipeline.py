@@ -22,7 +22,7 @@ def load_data(df_i:pd.DataFrame,conn:str):
             t_start = time.time()
             
             df = next(df_i)
-            df.to_sql(name="yello_taxi",con=conn,if_exists="replace")
+            df.to_sql(name="yellow_taxi",con=conn,if_exists="replace")
 
             t_end = time.time()
 

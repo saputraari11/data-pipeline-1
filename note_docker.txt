@@ -1,0 +1,8 @@
+konek ke db docker dengan host nama service dan portnya default 5432 -> postgres
+
+cara create db automactly dengan volumenya di mounting ke folder lokal 
+
+version -> itu menentukan versi terbaru dari docker registrynya,jadi ngga sembarang versi bisa diinstal tergantung versi docker tadi 
+
+konek ke docker network ialah dengan bridge di networknya 
+

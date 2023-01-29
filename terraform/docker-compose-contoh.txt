@@ -1,0 +1,18 @@
+services:
+  pythonapp:
+    build: "."
+    command: sh -c "sleep 10; python ./pipeline.py -u root -p root -s 0.0.0.0 -v 5430 -d ny_taxi -i https://d37ci6vzurychx.cloudfront.net/misc/taxi+_zone_lookup.csv"
+    depends_on:
+      - pgdatabase
+
+  pgdatabase:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=ny_taxi
+    volumes:
+      - "./belajar_pipeline:/var/lib/postgresql/data:rw"
+    ports:
+      - "5430:5432"
+    
